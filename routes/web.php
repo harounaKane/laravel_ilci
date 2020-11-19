@@ -1,5 +1,6 @@
 <?php
 
+use App\Controller\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name("accueil");
 
 Route::get('hello', function (){
     $personne = [
@@ -24,7 +25,7 @@ Route::get('hello', function (){
         ["prenom" => "Julie", "nom" => "Titi"]
     ];
     return view('hello.index', ["personne" => $personne]);
-                                        //"personne" => $personne extract($_POST)
+                                    //"personne" => $personne extract($_POST)
 });
 
 Route::get('batiment/{batiment?}/etage/{num?}', function ($batiment, $num = "RDC"){
@@ -34,5 +35,10 @@ Route::get('batiment/{batiment?}/etage/{num?}', function ($batiment, $num = "RDC
 })->where('num', '[0-9]+');
 
 
+//Route::get('user', [UserController::class, 'index']);
+Route::resource('user', 'App\Http\Controllers\UserController');
 
-//"Bâtiment ". $batiment ." étage " . $num;
+
+
+Route::get('user/avecParam/{param}', 'App\Http\Controllers\UserController@avecParam');
+//Route::match(['get','post'],'user/avecParam/{param}', 'App\Http\Controllers\UserController@avecParam');

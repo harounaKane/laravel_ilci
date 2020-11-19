@@ -14,7 +14,9 @@
         <nav class="navbar navbar-light">
             <a class="text-dark" href="{{ url('/') }}">Home</a>
             <a class="text-dark" href="{{ url('hello') }}">Hello</a>
+            <a class="text-dark" href="{{ url('user/create') }}">Inscription</a>
             <a class="text-dark" href="{{ url('batiment/B/etage/10') }}">Bâtiment</a>
+            <a class="text-dark" href="{{ url('user/avecParam/10') }}">Avec param</a>
         </nav>
     </header>
     <main class="container-fluid">
