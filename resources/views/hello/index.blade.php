@@ -1,28 +1,22 @@
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
+@extends('template')
 
+@section('title')
+    Hello
+@stop
+
+@section('content')
     <h1>Dire bonjour à :</h1>
 
-    <table>
-        <tr>
+    <table class="table table-striped table-bordered table-hover table-sm">
+        <tr class="bg-dark text-white">
             <th>Prénom</th>
             <th>Nom</th>
         </tr>
-    @foreach($personne as  $key => $value)
+        @foreach($personne as  $key => $value)
             <tr>
                 <td>{{ $value['prenom'] }}</td>
                 <td>{{ $value['nom'] }}</td>
             </tr>
-    @endforeach
+        @endforeach
     </table>
-
-</body>
-</html>
+@stop
