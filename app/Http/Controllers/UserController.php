@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
-        dd(["test" => "index"]);
+        $users = User::all();
+        return view("welcome", compact("users"));
     }
 
     /**
@@ -23,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('inscription.index');
+        return view('user.index');
     }
 
     /**
@@ -34,6 +37,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        User::create([
+           "prenom" => $request->prenom,
+            "nom"   => $request->nom,
+            "login" => $request->login,
+            "mdp"   => password_hash($request->mdp, PASSWORD_DEFAULT)
+        ]);
+
+        session()->flash("message", "inscription réussie !!");
+
         return redirect('./');
         //return redirect()->route('accueil');
     }
@@ -46,7 +58,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('user.show', ["user" => User::find($id)]);
     }
 
     /**
@@ -57,7 +69,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return view("user.edit", compact('user'));
     }
 
     /**
@@ -69,7 +82,14 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        $user->update([
+            "prenom" => $request->prenom,
+            "nom"    => $request->nom,
+            "login"  => $request->login
+        ]);
+        session()->flash("message", "mise à jour réussie !!");
+        return redirect('./');
     }
 
     /**
@@ -80,10 +100,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::find($id)->delete();
+
+        return redirect('./');
     }
 
-    function avecParam($param){
-        dd($param);
-    }
 }

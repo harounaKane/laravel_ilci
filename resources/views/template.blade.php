@@ -5,22 +5,25 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title> @yield('title', 'titre default') - Blog </title>
+    <title> @yield('title', 'user') - Blog </title>
 </head>
 <body>
 
     <header class="px-5 bg-success container-fluid">
         <nav class="navbar navbar-light">
             <a class="text-dark" href="{{ url('/') }}">Home</a>
-            <a class="text-dark" href="{{ url('hello') }}">Hello</a>
+            <a class="text-dark" href="{{ url('/') }}">Hello</a>
             <a class="text-dark" href="{{ url('user/create') }}">Inscription</a>
-            <a class="text-dark" href="{{ url('batiment/B/etage/10') }}">Bâtiment</a>
-            <a class="text-dark" href="{{ url('user/avecParam/10') }}">Avec param</a>
         </nav>
     </header>
     <main class="container-fluid">
-
+        @if(session()->has('message'))
+            <div class="alert alert-success">
+                {{ session()->get('message') }}
+            </div>
+        @endif
         <section class="row">
             <article class="col-12 col-md-8">
                 @yield('content')
